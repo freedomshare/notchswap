@@ -69,24 +69,34 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       },
     ],
   },
+  // {
+  //   label: t('More'),
+  //   icon: 'MoreIcon',
+  //   items: [
+  //     {
+  //       label: t('Github'),
+  //       href: 'https://github.com/notchswap',
+  //     },
+  //     {
+  //       label: t('Docs'),
+  //       href: 'https://notchswap.com/docs/whitepaper.pdf',
+  //     },
+  //     {
+  //       label: t('News'),
+  //       href: 'https://medium.com/@notchswap',
+  //     },
+  //   ],
+  // },
   {
-    label: t('More'),
+    label: t('Admin'),
     icon: 'MoreIcon',
     items: [
       {
-        label: t('Github'),
-        href: 'https://github.com/notchswap',
+        label: t('Tokens'),
+        href: '/tokenView',
       },
-      {
-        label: t('Docs'),
-        href: 'https://notchswap.com/docs/whitepaper.pdf',
-      },
-      {
-        label: t('News'),
-        href: 'https://medium.com/@notchswap',
-      },
-    ],
-  }
+    ]
+  },
 ]
 
 export default config
