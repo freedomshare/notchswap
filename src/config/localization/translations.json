@@ -1360,8 +1360,9 @@
   "Add Token": "Add Token",
   "Name": "Name",
   "Symbol": "Symbol",
-  "Address": "Address",
+  "Contract Address": "Contract Address",
   "ChainID": "ChainID",
   "Decimals": "Decimals",
-  "LogoURI": "LogoURI"
+  "LogoURI": "LogoURI",
+  "Token-Hub": "Token-Hub"
 }

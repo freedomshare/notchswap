@@ -92,7 +92,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     icon: 'MoreIcon',
     items: [
       {
-        label: t('Tokens'),
+        label: t('Token-Hub'),
         href: '/tokenView',
       },
     ]

@@ -89,7 +89,7 @@ export default function AddTokenModal({
                     <Row>
                         <Input
                             id="token-address"
-                            placeholder={t('Address')}
+                            placeholder={t('Contract Address')}
                             scale="lg"
                             autoComplete="off"
                             // value={searchQuery}
@@ -140,7 +140,7 @@ export default function AddTokenModal({
                         //   onClick={() => setModalView(CurrencyModalView.manage)}
                         className="list-token-manage-button"
                     >
-                        {t('Add')}
+                        {t('Add Token')}
                     </Button>
                 </Footer>
             </StyledModalBody>

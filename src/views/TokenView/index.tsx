@@ -291,7 +291,7 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
           >
             <Flex flexDirection="column" flex="1" alignSelf={['flex-start', null, null, 'center']}>
               <Heading as="h1" scale="xxl" color="#f5f800" mb="24px">
-                {t('Tokens')}
+                {t('Token-Hub')}
               </Heading>
               <Heading scale="lg" color="text">
                 {t('Verify your tokens.')}
