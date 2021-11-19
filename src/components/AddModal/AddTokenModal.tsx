@@ -35,22 +35,49 @@ const StyledModalBody = styled(ModalBody)`
 `
 
 interface AddTokenModalProps extends InjectedModalProps {
-    selectedCurrency?: Currency | null
-    onCurrencySelect: (currency: Currency) => void
-    otherSelectedCurrency?: Currency | null
-    showCommonBases?: boolean
+    onAdd: (name: string, symbol: string, address: string, chainId: number, decimals: number, logoURI: string) => void
 }
 
 export default function AddTokenModal({
     onDismiss = () => null,
-    onCurrencySelect,
-    selectedCurrency,
-    otherSelectedCurrency,
-    showCommonBases = false,
+    onAdd,
 }: AddTokenModalProps) {
 
     const { t } = useTranslation()
 
+    const [name, setName] = useState<string | undefined>()
+    const [symbol, setSymbol] = useState<string | undefined>()
+    const [address, setAddress] = useState<string | undefined>()
+    const [chainId, setChainId] = useState<number | 0>()
+    const [decimals, setDecimals] = useState<number | 0>()
+    const [logoURI, setLogoURI] = useState<string | undefined>()
+
+    const handleInputName = useCallback((event) => {
+        setName(event.target.value)
+    }, [])
+    const handleInputSymbol = useCallback((event) => {
+        setSymbol(event.target.value)
+    }, [])
+    const handleInputAddress = useCallback((event) => {
+        setAddress(event.target.value)
+    }, [])
+    const handleInputChainId = useCallback((event) => {
+        setChainId(event.target.value)
+    }, [])
+    const handleInputDecimals = useCallback((event) => {
+        setDecimals(event.target.value)
+    }, [])
+    const handleInputLogoURI = useCallback((event) => {
+        setLogoURI(event.target.value)
+    }, [])
+
+    const handleAdd = useCallback(
+        () => {
+            onAdd(name, symbol, address, chainId, decimals, logoURI)
+            onDismiss()
+        },
+        [name, symbol, address, chainId, decimals, logoURI, onAdd, onDismiss]
+    )
 
     return (
         <StyledModalContainer minWidth="320px">
@@ -68,10 +95,8 @@ export default function AddTokenModal({
                             placeholder={t('Name')}
                             scale="lg"
                             autoComplete="off"
-                            // value={searchQuery}
-                            // ref={inputRef as RefObject<HTMLInputElement>}
-                            // onChange={handleInput}
-                            // onKeyDown={handleEnter}
+                            value={name}
+                            onChange={handleInputName}
                         />
                     </Row>
                     <Row>
@@ -80,10 +105,8 @@ export default function AddTokenModal({
                             placeholder={t('Symbol')}
                             scale="lg"
                             autoComplete="off"
-                            // value={searchQuery}
-                            // ref={inputRef as RefObject<HTMLInputElement>}
-                            // onChange={handleInput}
-                            // onKeyDown={handleEnter}
+                            value={symbol}
+                            onChange={handleInputSymbol}
                         />
                     </Row>
                     <Row>
@@ -92,10 +115,8 @@ export default function AddTokenModal({
                             placeholder={t('Contract Address')}
                             scale="lg"
                             autoComplete="off"
-                            // value={searchQuery}
-                            // ref={inputRef as RefObject<HTMLInputElement>}
-                            // onChange={handleInput}
-                            // onKeyDown={handleEnter}
+                            value={address}
+                            onChange={handleInputAddress}
                         />
                     </Row>
                     <Row>
@@ -104,20 +125,16 @@ export default function AddTokenModal({
                             placeholder={t('ChainID')}
                             scale="lg"
                             autoComplete="off"
-                            // value={searchQuery}
-                            // ref={inputRef as RefObject<HTMLInputElement>}
-                            // onChange={handleInput}
-                            // onKeyDown={handleEnter}
+                            value={chainId}
+                            onChange={handleInputChainId}
                         />
                         <Input
                             id="token-decimals"
                             placeholder={t('Decimals')}
                             scale="lg"
                             autoComplete="off"
-                            // value={searchQuery}
-                            // ref={inputRef as RefObject<HTMLInputElement>}
-                            // onChange={handleInput}
-                            // onKeyDown={handleEnter}
+                            value={decimals}
+                            onChange={handleInputDecimals}
                         />
                     </Row>
                     <Row>
@@ -126,10 +143,8 @@ export default function AddTokenModal({
                             placeholder={t('LogoURI')}
                             scale="lg"
                             autoComplete="off"
-                            // value={searchQuery}
-                            // ref={inputRef as RefObject<HTMLInputElement>}
-                            // onChange={handleInput}
-                            // onKeyDown={handleEnter}
+                            value={logoURI}
+                            onChange={handleInputLogoURI}
                         />
                     </Row>
                 </AutoColumn>
@@ -137,7 +152,7 @@ export default function AddTokenModal({
                     <Button
                         scale="sm"
                         variant="text"
-                        //   onClick={() => setModalView(CurrencyModalView.manage)}
+                        onClick={() => handleAdd()}
                         className="list-token-manage-button"
                     >
                         {t('Add Token')}

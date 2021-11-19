@@ -23,7 +23,8 @@ import Table from './components/FarmTable/FarmTable'
 import { RowProps } from './components/FarmTable/Row'
 import { DesktopColumnSchema, ViewMode } from './components/types'
 import AddTokenModal from '../../components/AddModal/AddTokenModal'
-
+import HubService from '../../service/hubService'
+import TokenType from '../../service/token.type'
 
 const NUMBER_OF_FARMS_VISIBLE = 50
 
@@ -273,12 +274,30 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
     )
   }
 
+  const onAdd = useCallback(
+    (name: string, symbol: string, address: string, chainId: number, decimals: number, logoURI: string) => {
+      const reqData: TokenType = {
+        name,
+        symbol,
+        address,
+        chainId,
+        decimals,
+        logoURI
+      }
+      HubService.create(reqData)
+        .then((response: any) => {
+          console.info(response)
+        })
+        .catch((e: Error) => {
+          console.error(e);
+        });
+    },
+    []
+  )
+
   const [onPresentCurrencyModal] = useModal(
     <AddTokenModal
-      onCurrencySelect={null}
-      selectedCurrency={null}
-      otherSelectedCurrency={null}
-      showCommonBases={null}
+      onAdd={onAdd}
     />,
   )
 
