@@ -1357,5 +1357,11 @@
   "Only the price from Chainlink (shown on the cards) determines the round's result.": "Only the price from Chainlink (shown on the cards) determines the round's result.",
   "Verify your tokens.": "Verify your tokens.",
   "Add": "Add",
-  "Add Token": "Add Token"
+  "Add Token": "Add Token",
+  "Name": "Name",
+  "Symbol": "Symbol",
+  "Address": "Address",
+  "ChainID": "ChainID",
+  "Decimals": "Decimals",
+  "LogoURI": "LogoURI"
 }
