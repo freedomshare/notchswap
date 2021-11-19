@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react'
 import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
-import { Image, Heading, RowType, Toggle, Text, Button, ArrowForwardIcon, Flex } from '@pancakeswap/uikit'
+import { Image, Heading, RowType, Toggle, Text, Button, ArrowForwardIcon, Flex, useModal } from '@pancakeswap/uikit'
 import { ChainId } from '@pancakeswap/sdk'
 import styled from 'styled-components'
 import FlexLayout from 'components/Layout/Flex'
@@ -18,102 +18,23 @@ import isArchivedPid from 'utils/farmHelpers'
 import { latinise } from 'utils/latinise'
 import { useUserFarmStakedOnly } from 'state/user/hooks'
 import PageHeader from 'components/PageHeader'
-import SearchInput from 'components/SearchInput'
-import Select, { OptionProps } from 'components/Select/Select'
-import Loading from 'components/Loading'
-// import { getCountdownparams } from 'state/farms/fetchPublicFarmData'
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
 import Table from './components/FarmTable/FarmTable'
-import FarmTabButtons from './components/FarmTabButtons'
 import { RowProps } from './components/FarmTable/Row'
-import ToggleView from './components/ToggleView/ToggleView'
 import { DesktopColumnSchema, ViewMode } from './components/types'
+import AddTokenModal from '../../components/AddModal/AddTokenModal'
 
-const ControlContainer = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  position: relative;
 
-  justify-content: space-between;
-  flex-direction: column;
-  margin-bottom: 32px;
-
-  ${({ theme }) => theme.mediaQueries.sm} {
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 16px 32px;
-    margin-bottom: 0;
-  }
-`
-
-const ToggleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-
-  ${Text} {
-    margin-left: 8px;
-  }
-`
-
-const LabelWrapper = styled.div`
-  > ${Text} {
-    font-size: 12px;
-  }
-`
-
-const FilterContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 8px 0px;
-
-  ${({ theme }) => theme.mediaQueries.sm} {
-    width: auto;
-    padding: 0;
-  }
-`
-
-const ViewControls = styled.div`
-  flex-wrap: wrap;
-  justify-content: space-between;
-  display: flex;
-  align-items: center;
-  width: 100%;
-
-  > div {
-    padding: 8px 0px;
-  }
-
-  ${({ theme }) => theme.mediaQueries.sm} {
-    justify-content: flex-start;
-    width: auto;
-
-    > div {
-      padding: 0;
-    }
-  }
-`
-
-const StyledImage = styled(Image)`
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 58px;
-`
-const NUMBER_OF_FARMS_VISIBLE = 12
+const NUMBER_OF_FARMS_VISIBLE = 50
 
 const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number) => {
-  // if (cakeRewardsApr && lpRewardsApr) {
-  //   return (cakeRewardsApr + lpRewardsApr).toLocaleString('en-US', { maximumFractionDigits: 2 })
-  // }
   if (cakeRewardsApr) {
     return cakeRewardsApr.toLocaleString('en-US', { maximumFractionDigits: 2 })
   }
   return null
 }
 
-export interface FarmsProps{
+export interface FarmsProps {
   tokenMode?: boolean
 }
 
@@ -128,7 +49,7 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
   const chosenFarmsLength = useRef(0)
-  const {tokenMode} = farmsProps;
+  const { tokenMode } = farmsProps;
   const isArchived = pathname.includes('archived')
   const isInactive = pathname.includes('history')
   const isActive = !isInactive && !isArchived
@@ -182,32 +103,7 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
     [cakePrice, query, isActive],
   )
 
-  const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value)
-  }
-
-  const loadMoreRef = useRef<HTMLDivElement>(null)
-
   const [numberOfFarmsVisible, setNumberOfFarmsVisible] = useState(NUMBER_OF_FARMS_VISIBLE)
-  const [observerIsSet, setObserverIsSet] = useState(false)
-  // const [canharvest, setCanharvest] = useState(false);
-
-  // useEffect(() => {
-  //   const setcanharvest = async () => {
-  //     const res = await getCountdownparams()
-  //     setCanharvest(res.isharvestnow)
-  //   }
-  //   setcanharvest()
-  // }, [])
-
-  // const [harvestfee, setHarvestfee] = useState('69');
-  // useEffect(() => {
-  //   const setharvestfee = async () => {
-  //     const res = await getCountdownparams()
-  //     setHarvestfee(res.harvestFee)
-  //   }
-  //   setharvestfee()
-  // }, [])
 
   const chosenFarmsMemoized = useMemo(() => {
     let chosenFarms = []
@@ -263,29 +159,6 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
   ])
 
   chosenFarmsLength.current = chosenFarmsMemoized.length
-
-  useEffect(() => {
-    const showMoreFarms = (entries) => {
-      const [entry] = entries
-      if (entry.isIntersecting) {
-        setNumberOfFarmsVisible((farmsCurrentlyVisible) => {
-          if (farmsCurrentlyVisible <= chosenFarmsLength.current) {
-            return farmsCurrentlyVisible + NUMBER_OF_FARMS_VISIBLE
-          }
-          return farmsCurrentlyVisible
-        })
-      }
-    }
-
-    if (!observerIsSet) {
-      const loadMoreObserver = new IntersectionObserver(showMoreFarms, {
-        rootMargin: '0px',
-        threshold: 1,
-      })
-      loadMoreObserver.observe(loadMoreRef.current)
-      setObserverIsSet(true)
-    }
-  }, [chosenFarmsMemoized, observerIsSet])
 
   const rowData = chosenFarmsMemoized.map((farm) => {
     const { token, quoteToken } = farm
@@ -400,101 +273,40 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
     )
   }
 
-  const handleSortOptionChange = (option: OptionProps): void => {
-    setSortOption(option.value)
-  }
+  const [onPresentCurrencyModal] = useModal(
+    <AddTokenModal
+      onCurrencySelect={null}
+      selectedCurrency={null}
+      otherSelectedCurrency={null}
+      showCommonBases={null}
+    />,
+  )
 
   return (
     <>
       <PageHeader>
         <Flex flexDirection="column">
           <Flex flexDirection={['column', null, null, 'row']} alignItems={['flex-end', null, null, 'center']}
-        justifyContent="center"
+            justifyContent="center"
           >
-            <Flex flexDirection="column" flex="1" alignSelf={['flex-start', null, null, 'center']}
-            >
+            <Flex flexDirection="column" flex="1" alignSelf={['flex-start', null, null, 'center']}>
               <Heading as="h1" scale="xxl" color="#f5f800" mb="24px">
-                {tokenMode ? t('Pools') : t('Farms')}
+                {t('Tokens')}
               </Heading>
               <Heading scale="lg" color="text">
-                {tokenMode ? t('Stake Single token to earn.') : t('Stake LP tokens to earn.')}
+                {t('Verify your tokens.')}
               </Heading>
             </Flex>
-          
-          {/* <Flex flexDirection="column" flex="1" alignSelf={['flex-start', null, null, 'center']}
-          >
-            <Heading scale="lg" color="text">
-                {canharvest ? t('Harvest Remain Time') : t('Harvest Locked')}
-            </Heading>
-            <Text>
-              {canharvest ? `Harvest Fee is ${harvestfee}%. It decreases by 3% every hour.`: t('Remain Time to Harvest')}
-            </Text>
-            <CountDownCircler />
-          </Flex> */}
+            <Button
+              style={{ color: account ? "black" : "#f5f800" }}
+              variant={!account ? 'secondary' : 'primary'}
+              onClick={() => { onPresentCurrencyModal() }}
+            >{t('Add')}</Button>
           </Flex>
         </Flex>
-        {/* <NavLink exact activeClassName="active" to="/farms/auction" id="lottery-pot-banner">
-          <Button p="0" variant="text">
-            <Text color="primary" bold fontSize="16px" mr="4px">
-              {t('Community Auctions')}
-            </Text>
-            <ArrowForwardIcon color="primary" />
-          </Button>
-        </NavLink> */}
       </PageHeader>
       <Page>
-        <ControlContainer>
-          <ViewControls>
-            <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
-            <ToggleWrapper>
-              <Toggle checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
-              <Text> {t('Staked only')}</Text>
-            </ToggleWrapper>
-            <FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
-          </ViewControls>
-          <FilterContainer>
-            <LabelWrapper>
-              <Text textTransform="uppercase">{t('Sort by')}</Text>
-              <Select
-                options={[
-                  // {
-                  //   label: t('Hot'),
-                  //   value: 'hot',
-                  // },
-                  {
-                    label: t('APR'),
-                    value: 'apr',
-                  },
-                  {
-                    label: t('Multiplier'),
-                    value: 'multiplier',
-                  },
-                  {
-                    label: t('Earned'),
-                    value: 'earned',
-                  },
-                  {
-                    label: t('Liquidity'),
-                    value: 'liquidity',
-                  },
-                ]}
-                onChange={handleSortOptionChange}
-              />
-            </LabelWrapper>
-            <LabelWrapper style={{ marginLeft: 16 }}>
-              <Text textTransform="uppercase">{t('Search')}</Text>
-              <SearchInput onChange={handleChangeQuery} placeholder="Search Farms" />
-            </LabelWrapper>
-          </FilterContainer>
-        </ControlContainer>
         {renderContent()}
-        {account && !userDataLoaded && stakedOnly && (
-          <Flex justifyContent="center">
-            <Loading />
-          </Flex>
-        )}
-        <div ref={loadMoreRef} />
-        {/* <StyledImage src="/images/decorations/3dpan.png" alt="Pancake illustration" width={120} height={103} /> */}
       </Page>
     </>
   )
