@@ -93,6 +93,21 @@ export const DesktopColumnSchema: ColumnsDefTypes[] = [
   },
 ]
 
+export const DesktopTokenColumnSchema: ColumnsDefTypes[] = [
+  {
+    id: 1,
+    name: 'logo',
+    sortable: true,
+    label: '',
+  },
+  {
+    id: 2,
+    name: 'name',
+    sortable: true,
+    label: 'Name',
+  },
+]
+
 export enum ViewMode {
   'TABLE' = 'TABLE',
   'CARD' = 'CARD',

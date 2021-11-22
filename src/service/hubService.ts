@@ -4,7 +4,7 @@ import TokenData from "./token.type"
 class HubService {
   getAll() {
     if (this)
-      return http.get<Array<TokenData>>("/tokens");
+      return http.get<Array<TokenData>>("/tokens/");
     return null
   }
 
