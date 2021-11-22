@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, RefObject, useRef, useEffect } from 'react'
 import { Currency, Token } from '@pancakeswap/sdk'
 import {
     ModalContainer,
@@ -44,6 +44,13 @@ export default function AddTokenModal({
 }: AddTokenModalProps) {
 
     const { t } = useTranslation()
+
+    // manage focus on modal show
+    const inputRef = useRef<HTMLInputElement>()
+
+    useEffect(() => {
+        inputRef.current.focus()
+    }, [])
 
     const [name, setName] = useState<string | undefined>()
     const [symbol, setSymbol] = useState<string | undefined>()
@@ -95,6 +102,7 @@ export default function AddTokenModal({
                             placeholder={t('Name')}
                             scale="lg"
                             autoComplete="off"
+                            ref={inputRef as RefObject<HTMLInputElement>}
                             value={name}
                             onChange={handleInputName}
                         />

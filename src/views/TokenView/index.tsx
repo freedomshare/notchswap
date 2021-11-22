@@ -286,7 +286,7 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
       }
       HubService.create(reqData)
         .then((response: any) => {
-          console.info(response)
+          console.info(response.data)
         })
         .catch((e: Error) => {
           console.error(e);
