@@ -18,7 +18,8 @@ cypress/fixtures/example.json
 
 # production
 /build
-build.zip
+/build.zip
+*.zip
 
 # misc
 .DS_Store
@@ -37,3 +38,4 @@ yarn-error.log*
 debug.log*
 yarn.lock
 
+build.zip
