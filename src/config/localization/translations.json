@@ -1367,5 +1367,9 @@
   "Token-Hub": "Token-Hub",
   "Login": "Login",
   "Email": "Email",
-  "Password": "Password"
+  "Password": "Password",
+  "Now, you are the Admin": "Now, you are the Admin",
+  "Success": "Success",
+  "Sorry, Sign In Failed.": "Sorry, Sign In Failed.",
+  "Sign In as Admin.": "Sign In as Admin."
 }

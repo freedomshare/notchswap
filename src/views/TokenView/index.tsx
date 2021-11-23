@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react'
-import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom'
+import { Route, useRouteMatch, useLocation, NavLink, Link } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Image, Heading, RowType, Toggle, Text, Button, ArrowForwardIcon, Flex, useModal } from '@pancakeswap/uikit'
@@ -16,7 +16,8 @@ import { getFarmApr } from 'utils/apr'
 import { orderBy } from 'lodash'
 import isArchivedPid from 'utils/farmHelpers'
 import { latinise } from 'utils/latinise'
-import { useUserFarmStakedOnly } from 'state/user/hooks'
+import { useAdminState } from 'state/admin/hooks'
+import useToast from 'hooks/useToast'
 import PageHeader from 'components/PageHeader'
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
 import Table from './components/TokenTable/TokenTable'
@@ -48,11 +49,12 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
   const isArchived = pathname.includes('archived')
   const [tokenList, setTokenList] = useState([]);
 
-  usePollFarmsData(isArchived)
+  // usePollFarmsData(isArchived)
 
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
   const userDataReady = !account || (!!account && userDataLoaded)
+  const { toastSuccess, clear } = useToast()
 
   const fetchTokenList = useCallback(() => {
     HubService.getAll()
@@ -66,13 +68,14 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
   },
     []
   )
+  const isAdmin = useAdminState() != null
 
   useEffect(() => {
     fetchTokenList()
   }, [tokenList, fetchTokenList])
 
   const renderContent = (): JSX.Element => {
-    if (viewMode === ViewMode.TABLE && tokenList.length) {
+    if (viewMode === ViewMode.TABLE && tokenList.length && isAdmin) {
       // const columnSchema = DesktopColumnSchema
 
       // const columns = columnSchema.map((column) => ({
@@ -109,7 +112,12 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
       return <Table data={tokenList} columns={columns} userDataReady={userDataReady} />
     }
 
-    return (null)
+    return <>
+      <Text bold style={{ marginLeft: 10 }}>Sorry, you are not admin.</Text>
+      <Button as={Link} to="/admin" width="100%">
+        {t('Sign In as Admin')}
+      </Button>
+    </>
     // return (
     //   <FlexLayout>
     //     <Route exact path={`${path}`}>
@@ -164,13 +172,14 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
       }
       HubService.create(reqData)
         .then((response: any) => {
-          console.info(response.data)
+          clear()
+          toastSuccess(t('Success'), response.data)
         })
         .catch((e: Error) => {
           console.error(e);
         });
     },
-    []
+    [clear, t, toastSuccess]
   )
 
   const [onPresentCurrencyModal] = useModal(
@@ -181,7 +190,7 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
 
   return (
     <>
-      <PageHeader>
+      {isAdmin && <PageHeader>
         <Flex flexDirection="column">
           <Flex flexDirection={['column', null, null, 'row']} alignItems={['flex-end', null, null, 'center']}
             justifyContent="center"
@@ -201,7 +210,7 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
             >{t('Add')}</Button>
           </Flex>
         </Flex>
-      </PageHeader>
+      </PageHeader>}
       <Page>
         {renderContent()}
       </Page>

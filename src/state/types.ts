@@ -14,11 +14,11 @@ export interface BigNumberToJson {
 export type TranslatableText =
   | string
   | {
-      key: string
-      data?: {
-        [key: string]: string | number
-      }
+    key: string
+    data?: {
+      [key: string]: string | number
     }
+  }
 
 export type SerializedBigNumber = string
 
@@ -108,6 +108,15 @@ export interface PoolsState {
   data: Pool[]
   cakeVault: CakeVault
   userDataLoaded: boolean
+}
+
+export interface Admin {
+  id: number
+  email: string
+}
+
+export interface AdminState {
+  data: Admin[]
 }
 
 export interface ProfileState {
@@ -497,6 +506,7 @@ export type UserTicketsResponse = [ethers.BigNumber[], number[], boolean[]]
 
 export interface State {
   achievements: AchievementState
+  admin:AdminState
   block: BlockState
   farms: FarmsState
   pools: PoolsState
