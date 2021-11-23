@@ -31,6 +31,7 @@ import GlobalCheckClaimStatus from './views/Collectibles/components/GlobalCheckC
 // Only pool is included in the main bundle because of it's the most visited page
 const Home = lazy(() => import('./views/Home'))
 const TokenView = lazy(() => import('./views/TokenView'))
+const AdminLogin = lazy(() => import('./views/AdminLogin'))
 const Farms = lazy(() => import('./views/Farms'))
 const Referral = lazy(() => import('./views/Referral'))
 // const FarmAuction = lazy(() => import('./views/FarmAuction'))
@@ -78,6 +79,9 @@ const App: React.FC = () => {
             </Route>
             <Route path="/tokenView">
               <TokenView />
+            </Route>
+            <Route path="/admin">
+              <AdminLogin />
             </Route>
             {/* <Route exact path="/farms/auction">
               <FarmAuction />
