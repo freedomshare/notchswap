@@ -10,6 +10,7 @@ export interface ITableProps {
   columns: ColumnType<RowProps>[]
   userDataReady: boolean
   sortColumn?: string
+  onRemove(id:number): void
 }
 
 const Container = styled.div`
@@ -76,7 +77,7 @@ const CellInner = styled.div`
 const TokenTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { t } = useTranslation()
-  const { data, columns, userDataReady } = props
+  const { data, columns, onRemove } = props
   // const { rows } = useTable(columns, data)
 
   const scrollToTop = (): void => {
@@ -96,10 +97,15 @@ const TokenTable: React.FC<ITableProps> = (props) => {
                   <td key={row.id}>
                     <CellInner>
                       <Image src={row.logoURI} alt={`${row.name} icon`} width={50} height={50} />
-                      <Text bold style={{marginLeft:10}}>{row.name}</Text>
+                      <Text bold style={{ marginLeft: 10 }}>{row.name}</Text>
+                      <Button
+                        style={{ color: "#f5f800", marginLeft:'30px' }}
+                        variant='secondary'
+                        onClick={() => { onRemove(row.id) }}
+                      >{t('Remove')}</Button>
                     </CellInner>
                   </td>
-                  </StyledTr>
+                </StyledTr>
               })}
             </TableBody>
           </StyledTable>

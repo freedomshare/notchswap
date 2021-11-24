@@ -68,6 +68,19 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
   },
     []
   )
+
+  const removeToken = useCallback((id:number) => {
+    HubService.delete(id)
+      .then((response: any) => {
+        clear()
+        toastSuccess(t('Success'), response.data)
+      })
+      .catch((e: Error) => {
+        console.error(e);
+      })
+  },
+    [t, clear, toastSuccess]
+  )
   const isAdmin = useAdminState() != null
 
   useEffect(() => {
@@ -109,7 +122,7 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
         sortable: column.sortable,
       }))
 
-      return <Table data={tokenList} columns={columns} userDataReady={userDataReady} />
+      return <Table data={tokenList} columns={columns} userDataReady={userDataReady} onRemove={removeToken} />
     }
 
     return <>

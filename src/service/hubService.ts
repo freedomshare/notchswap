@@ -31,7 +31,7 @@ class HubService {
 
   delete(id: any) {
     if (this)
-      return http.delete<any>(`/tokens/${id}`);
+      return http.delete<any>(`/tokens/delete.php?id=${id}`);
     return null
   }
 
