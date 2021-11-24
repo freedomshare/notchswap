@@ -7,6 +7,7 @@ import { AppState } from '../index'
 import DEFAULT_TOKEN_LIST from '../../config/constants/tokenLists/pancake-default.tokenlist.json'
 import { UNSUPPORTED_LIST_URLS } from '../../config/constants/lists'
 import UNSUPPORTED_TOKEN_LIST from '../../config/constants/tokenLists/pancake-unsupported.tokenlist.json'
+import HubService from '../../service/hubService'
 
 type TagDetails = Tags[keyof Tags]
 export interface TagInfo extends TagDetails {
@@ -147,12 +148,36 @@ export function useInactiveListUrls(): string[] {
   const allActiveListUrls = useActiveListUrls()
   return Object.keys(lists).filter((url) => !allActiveListUrls?.includes(url) && !UNSUPPORTED_LIST_URLS.includes(url))
 }
+// async function getTokenHubs() {
+//   const response = await fetch("https://backend.notchswap.com/tokens/");
+//   const tokens = response.json()
+//   console.info(tokens)
+// }
+let TOKEN_HUB_LIST = []
+export function getTokenHubs() {
+  HubService.getAll()
+    .then((response: any) => {
+      TOKEN_HUB_LIST = response.data
+    })
+    .catch((e: Error) => {
+      console.error(e);
+    })
+}
 
 // get all the tokens from active lists, combine with local default tokens
 export function useCombinedActiveList(): TokenAddressMap {
   const activeListUrls = useActiveListUrls()
   const activeTokens = useCombinedTokenMapFromUrls(activeListUrls)
-  const defaultTokenMap = listToTokenMap(DEFAULT_TOKEN_LIST)
+  const NEW_TOKEN_LIST = {
+    name: DEFAULT_TOKEN_LIST.name,
+    timestamp: DEFAULT_TOKEN_LIST.timestamp,
+    version: DEFAULT_TOKEN_LIST.version,
+    tags: DEFAULT_TOKEN_LIST.tags,
+    logoURI: DEFAULT_TOKEN_LIST.logoURI,
+    keywords: DEFAULT_TOKEN_LIST.keywords,
+    tokens: TOKEN_HUB_LIST
+  }
+  const defaultTokenMap = listToTokenMap(NEW_TOKEN_LIST)
   return combineMaps(activeTokens, defaultTokenMap)
 }
 
@@ -164,7 +189,16 @@ export function useCombinedInactiveList(): TokenAddressMap {
 
 // used to hide warnings on import for default tokens
 export function useDefaultTokenList(): TokenAddressMap {
-  return listToTokenMap(DEFAULT_TOKEN_LIST)
+  const NEW_TOKEN_LIST = {
+    name: DEFAULT_TOKEN_LIST.name,
+    timestamp: DEFAULT_TOKEN_LIST.timestamp,
+    version: DEFAULT_TOKEN_LIST.version,
+    tags: DEFAULT_TOKEN_LIST.tags,
+    logoURI: DEFAULT_TOKEN_LIST.logoURI,
+    keywords: DEFAULT_TOKEN_LIST.keywords,
+    tokens: TOKEN_HUB_LIST
+  }
+  return listToTokenMap(NEW_TOKEN_LIST)
 }
 
 // list of tokens not supported on interface, used to show warnings and prevent swaps and adds

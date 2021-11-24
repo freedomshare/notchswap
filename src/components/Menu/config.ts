@@ -87,16 +87,16 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   //     },
   //   ],
   // },
-  {
-    label: t('Admin'),
-    icon: 'MoreIcon',
-    items: [
-      {
-        label: t('Token-Hub'),
-        href: '/tokenView',
-      },
-    ]
-  },
+  // {
+  //   label: t('Admin'),
+  //   icon: 'MoreIcon',
+  //   items: [
+  //     {
+  //       label: t('Token-Hub'),
+  //       href: '/tokenView',
+  //     },
+  //   ]
+  // },
 ]
 
 export default config

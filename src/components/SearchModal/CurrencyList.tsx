@@ -70,7 +70,8 @@ function CurrencyRow({
 }) {
   const { account } = useActiveWeb3React()
   const key = currencyKey(currency)
-  const selectedTokenList = useCombinedActiveList()
+  let selectedTokenList = useCombinedActiveList()
+  selectedTokenList = useCombinedActiveList()
   const isOnSelectedList = isTokenOnList(selectedTokenList, currency)
   const customAdded = useIsUserAddedToken(currency)
   const balance = useCurrencyBalance(account ?? undefined, currency)

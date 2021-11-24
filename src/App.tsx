@@ -5,6 +5,7 @@ import { QueryParamProvider } from 'use-query-params';
 import BigNumber from 'bignumber.js'
 import useEagerConnect from 'hooks/useEagerConnect'
 import { usePollBlockNumber } from 'state/block/hooks'
+import {getTokenHubs} from 'state/lists/hooks'
 import { usePollFarmsData } from 'state/farms/hooks'
 // import { useFetchProfile } from 'state/profile/hooks'
 import { DatePickerPortal } from 'components/DatePicker'
@@ -64,7 +65,7 @@ const App: React.FC = () => {
   useEagerConnect()
   // useFetchProfile()
   usePollFarmsData()
-
+  getTokenHubs()
   return (
     <Router>
       <QueryParamProvider ReactRouterRoute={Route}>
