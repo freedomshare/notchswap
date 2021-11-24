@@ -41,7 +41,7 @@ function Balance({ balance }: { balance: CurrencyAmount }) {
   return <StyledBalanceText title={balance.toExact()}>{balance.toSignificant(4)}</StyledBalanceText>
 }
 
-const MenuItem = styled(RowBetween)<{ disabled: boolean; selected: boolean }>`
+const MenuItem = styled(RowBetween) <{ disabled: boolean; selected: boolean }>`
   padding: 4px 20px;
   height: 56px;
   display: grid;
@@ -53,6 +53,10 @@ const MenuItem = styled(RowBetween)<{ disabled: boolean; selected: boolean }>`
     background-color: ${({ theme, disabled }) => !disabled && theme.colors.background};
   }
   opacity: ${({ disabled, selected }) => (disabled || selected ? 0.5 : 1)};
+`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
 `
 
 function CurrencyRow({
@@ -87,7 +91,14 @@ function CurrencyRow({
     >
       <CurrencyLogo currency={currency} size="24px" />
       <Column>
-        <Text bold>{currency.symbol}</Text>
+        <Wrapper>
+          <Text bold>{currency.symbol}</Text>
+          <img
+            alt="verified-icon"
+            src='/images/verified-icon.png'
+            style={{ width: '24px', height: '24px', marginLeft:'10px'}}
+          />
+        </Wrapper>
         <Text color="textSubtle" small ellipsis maxWidth="200px">
           {!isOnSelectedList && customAdded && 'Added by user •'} {currency.name}
         </Text>
