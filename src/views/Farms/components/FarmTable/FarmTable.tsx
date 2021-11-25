@@ -15,8 +15,8 @@ export interface ITableProps {
 const Container = styled.div`
   filter: ${({ theme }) => theme.card.dropShadow};
   width: 100%;
-  background: ${({ theme }) => theme.card.background};
-  border-radius: 16px;
+  // background: ${({ theme }) => theme.card.background};
+  // border-radius: 16px;
   margin: 16px 0px;
 `
 
@@ -72,15 +72,10 @@ const FarmTable: React.FC<ITableProps> = (props) => {
 
   return (
     <Container>
-      <TableContainer>
         <TableWrapper ref={tableWrapperEl}>
-          <StyledTable>
-            <TableBody>
               {rows.map((row) => {
                 return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
               })}
-            </TableBody>
-          </StyledTable>
         </TableWrapper>
         <ScrollButtonContainer>
           <Button variant="text" onClick={scrollToTop}>
@@ -88,7 +83,6 @@ const FarmTable: React.FC<ITableProps> = (props) => {
             <ChevronUpIcon color="primary" />
           </Button>
         </ScrollButtonContainer>
-      </TableContainer>
     </Container>
   )
 }

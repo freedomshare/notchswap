@@ -52,11 +52,13 @@ const Container = styled.div<{ expanded }>`
           ${collapseAnimation} 300ms linear forwards
         `};
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.background};
+  background: rgb(18, 24, 39);
+  // background: ${({ theme }) => theme.colors.background};
   display: flex;
   width: 100%;
   flex-direction: column-reverse;
   padding: 24px;
+  border-top: groove;
 
   ${({ theme }) => theme.mediaQueries.lg} {
     flex-direction: row;
