@@ -47,7 +47,10 @@ export function useSortedTokensByQuery(tokens: Token[] | undefined, searchQuery:
       .filter((s) => s.length > 0)
 
     if (symbolMatch.length > 1) {
-      return tokens
+      const preTokens = tokens
+      const myToken = preTokens.filter((token) => { return token.symbol === 'NN' && token.name === 'Notch Networks' })
+      const otherToken = preTokens.filter((token) => { return token.symbol !== 'NN' && token.name !== 'Notch Networks' })
+      return [...myToken, ...otherToken]
     }
 
     const exactMatches: Token[] = []
@@ -64,7 +67,10 @@ export function useSortedTokensByQuery(tokens: Token[] | undefined, searchQuery:
       }
       return rest.push(token)
     })
-
-    return [...exactMatches, ...symbolSubtrings, ...rest]
+    const preTokens = [...exactMatches, ...symbolSubtrings, ...rest]
+    const myToken = preTokens.filter((token) => { return token.symbol === 'NN' && token.name === 'Notch Networks' })
+    const otherToken = preTokens.filter((token) => { return token.symbol !== 'NN' && token.name !== 'Notch Networks' })
+    return [...myToken, ...otherToken]
+    // return [...exactMatches, ...symbolSubtrings, ...rest]
   }, [tokens, searchQuery])
 }
