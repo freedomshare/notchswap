@@ -42,7 +42,7 @@ const CellInner = styled.div`
   padding: 24px 0px;
   display: flex;
   width: 100%;
-  align-items: center;
+  align-items: flex-end;
   padding-right: 8px;
 
   ${({ theme }) => theme.mediaQueries.xl} {
@@ -77,7 +77,7 @@ const StyledRow = styled.div`
 const StyledUpRow = styled.div`
   cursor: pointer;
   display: flex;
-  justify-content: space-around;
+  // justify-content: space-around;
 `
 
 const Div1 = styled.div`
@@ -92,7 +92,33 @@ const BlurDiv = styled.div`
   border-radius: 16px;
   position: absolute;
   width: -webkit-fill-available;
+  max-width: -webkit-fill-available;
+  min-width: -webkit-fill-available;
   height: 84px;
+
+  @keyframes ilqnTz {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+`
+
+const BlurDivMobile = styled.div`
+  filter: blur(6px);
+  background: linear-gradient(45deg, rgb(255, 0, 0) 0%, rgb(255, 154, 0) 10%, rgb(208, 222, 33) 20%, rgb(79, 220, 74) 30%, rgb(63, 218, 216) 40%, rgb(47, 201, 226) 50%, rgb(28, 127, 238) 60%, rgb(95, 21, 242) 70%, rgb(186, 12, 248) 80%, rgb(251, 7, 217) 90%, rgb(255, 0, 0) 100%) 0% 0% / 300% 300%;
+  animation: 2s linear 0s infinite normal none running ilqnTz;
+  border-radius: 16px;
+  position: absolute;
+  width: -webkit-fill-available;
+  max-width: -webkit-fill-available;
+  min-width: -webkit-fill-available;
+  height: 124px;
 
   @keyframes ilqnTz {
     0% {
@@ -141,33 +167,33 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
             switch (key) {
               case 'details':
                 return (
-                  <Div1>
+                  <div style={{flex:2}}>
                     <CellInner>
                       <CellLayout>
                         <Details actionPanelToggled={actionPanelExpanded} />
                       </CellLayout>
                     </CellInner>
-                  </Div1>
+                  </div>
                 )
               case 'apr':
                 return (
-                  <Div1>
+                  <div style={{flex:2}}>
                     <CellInner>
                       <CellLayout label={t('APR')}>
                         <Apr {...props.apr} hideButton={isSmallerScreen} />
                       </CellLayout>
                     </CellInner>
-                  </Div1>
+                  </div>
                 )
               default:
                 return (
-                  <Div1>
+                  <div style={{flex:3}}>
                     <CellInner>
                       <CellLayout label={t(tableSchema[columnIndex].label)}>
                         {React.createElement(cells[key], { ...props[key], userDataReady })}
                       </CellLayout>
                     </CellInner>
-                  </Div1>
+                  </div>
                 )
             }
           })}
@@ -218,7 +244,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
 
     return (
       <StyledUpRow onClick={toggleActionPanel}>
-        <td>
+        <div style={{flex: 1}}>
           <tr>
             <FarmMobileCell>
               <CellLayout>
@@ -238,21 +264,23 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
               </CellLayout>
             </AprMobileCell>
           </tr>
-        </td>
-        <td>
+        </div>
+        <div style={{flex:1}}>
           <CellInner>
             <CellLayout>
               <Details actionPanelToggled={actionPanelExpanded} />
             </CellLayout>
           </CellInner>
-        </td>
+        </div>
       </StyledUpRow>
     )
   }
 
   return (
     <div style={{marginBottom:'10px', marginTop:'10px'}}>
-      <BlurDiv />
+      
+      {!isMobile && <BlurDiv />}
+      {isMobile && <BlurDivMobile />}
       <StyledRow>
         {handleRenderRow()}
         {shouldRenderChild && (
