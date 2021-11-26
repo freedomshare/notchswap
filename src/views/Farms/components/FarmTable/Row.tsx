@@ -56,7 +56,7 @@ const StyledTr = styled.tr`
 `
 
 const EarnedMobileCell = styled.td`
-  padding: 16px 0 24px 16px;
+  padding-left: 16px;
 `
 
 const AprMobileCell = styled.td`
@@ -244,13 +244,20 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
 
     return (
       <StyledUpRow onClick={toggleActionPanel}>
-        <div style={{ flex: 1 }}>
+        <table style={{ width: '100%' }}>
           <tr>
-            <FarmMobileCell>
+            <td style={{ width: '50%' }}>
               <CellLayout>
                 <Farm {...props.farm} />
               </CellLayout>
-            </FarmMobileCell>
+            </td>
+            <td style={{ width: '50%' }}>
+              <CellInner>
+                <CellLayout>
+                  <Details actionPanelToggled={actionPanelExpanded} />
+                </CellLayout>
+              </CellInner>
+            </td>
           </tr>
           <tr>
             <EarnedMobileCell>
@@ -258,20 +265,13 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 <Earned {...props.earned} userDataReady={userDataReady} />
               </CellLayout>
             </EarnedMobileCell>
-            <AprMobileCell>
+            <td>
               <CellLayout label={t('APR')}>
                 <Apr {...props.apr} hideButton />
               </CellLayout>
-            </AprMobileCell>
+            </td>
           </tr>
-        </div>
-        <div style={{ flex: 1 }}>
-          <CellInner>
-            <CellLayout>
-              <Details actionPanelToggled={actionPanelExpanded} />
-            </CellLayout>
-          </CellInner>
-        </div>
+        </table>
       </StyledUpRow>
     )
   }
