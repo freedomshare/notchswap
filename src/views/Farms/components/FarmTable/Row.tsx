@@ -91,10 +91,10 @@ const BlurDiv = styled.div`
   animation: 2s linear 0s infinite normal none running ilqnTz;
   border-radius: 16px;
   position: absolute;
-  width: -webkit-fill-available;
-  max-width: -webkit-fill-available;
-  min-width: -webkit-fill-available;
-  height: 84px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 
   @keyframes ilqnTz {
     0% {
@@ -115,10 +115,10 @@ const BlurDivMobile = styled.div`
   animation: 2s linear 0s infinite normal none running ilqnTz;
   border-radius: 16px;
   position: absolute;
-  width: -webkit-fill-available;
-  max-width: -webkit-fill-available;
-  min-width: -webkit-fill-available;
-  height: 124px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 
   @keyframes ilqnTz {
     0% {
@@ -167,7 +167,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
             switch (key) {
               case 'details':
                 return (
-                  <div style={{flex:2}}>
+                  <div style={{ flex: 2 }}>
                     <CellInner>
                       <CellLayout>
                         <Details actionPanelToggled={actionPanelExpanded} />
@@ -177,7 +177,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 )
               case 'apr':
                 return (
-                  <div style={{flex:2}}>
+                  <div style={{ flex: 2 }}>
                     <CellInner>
                       <CellLayout label={t('APR')}>
                         <Apr {...props.apr} hideButton={isSmallerScreen} />
@@ -187,7 +187,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
                 )
               default:
                 return (
-                  <div style={{flex:3}}>
+                  <div style={{ flex: 3 }}>
                     <CellInner>
                       <CellLayout label={t(tableSchema[columnIndex].label)}>
                         {React.createElement(cells[key], { ...props[key], userDataReady })}
@@ -244,7 +244,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
 
     return (
       <StyledUpRow onClick={toggleActionPanel}>
-        <div style={{flex: 1}}>
+        <div style={{ flex: 1 }}>
           <tr>
             <FarmMobileCell>
               <CellLayout>
@@ -265,7 +265,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
             </AprMobileCell>
           </tr>
         </div>
-        <div style={{flex:1}}>
+        <div style={{ flex: 1 }}>
           <CellInner>
             <CellLayout>
               <Details actionPanelToggled={actionPanelExpanded} />
@@ -277,8 +277,8 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   }
 
   return (
-    <div style={{marginBottom:'10px', marginTop:'10px'}}>
-      
+    <div style={{ marginBottom: '10px', marginTop: '10px', position: 'relative' }}>
+
       {!isMobile && <BlurDiv />}
       {isMobile && <BlurDivMobile />}
       <StyledRow>

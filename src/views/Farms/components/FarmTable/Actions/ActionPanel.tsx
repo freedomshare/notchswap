@@ -59,6 +59,8 @@ const Container = styled.div<{ expanded }>`
   flex-direction: column-reverse;
   padding: 24px;
   border-top: groove;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
 
   ${({ theme }) => theme.mediaQueries.lg} {
     flex-direction: row;
