@@ -156,8 +156,15 @@ export function useInactiveListUrls(): string[] {
 let TOKEN_HUB_LIST = []
 export function getTokenHubs() {
   HubService.getAll()
-    .then((response: any) => {
-      TOKEN_HUB_LIST = response.data
+    .then(({data}: any) => {
+      if(data && data.length){
+        TOKEN_HUB_LIST = data.map((token:any) => {
+          const _token = token
+          _token.chainId = parseInt(token.chainId)
+          _token.decimals = parseInt(token.decimals)
+          return _token
+        })
+      }
     })
     .catch((e: Error) => {
       console.error(e);
