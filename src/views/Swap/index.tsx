@@ -388,13 +388,13 @@ export default function Swap({ history }: RouteComponentProps) {
           </AutoColumn>
           <Box mt="1rem">
             {swapIsUnsupported ? (
-              <Button width="100%" disabled mb="4px">
+              <Button width="100%" disabled mb="4px" style={{color:"black"}}>
                 {t('Unsupported Asset')}
               </Button>
             ) : !account ? (
               <ConnectWalletButton width="100%" />
             ) : showWrap ? (
-              <Button width="100%" disabled={Boolean(wrapInputError)} onClick={onWrap}>
+              <Button width="100%" disabled={Boolean(wrapInputError)} onClick={onWrap} style={{color:"black"}}>
                 {wrapInputError ??
                   (wrapType === WrapType.WRAP ? 'Wrap' : wrapType === WrapType.UNWRAP ? 'Unwrap' : null)}
               </Button>

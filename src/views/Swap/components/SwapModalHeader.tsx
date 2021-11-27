@@ -79,7 +79,7 @@ export default function SwapModalHeader({
               <ErrorIcon mr="8px" />
               <Text bold> Price Updated</Text>
             </RowFixed>
-            <Button onClick={onAcceptChanges}>Accept</Button>
+            <Button onClick={onAcceptChanges} style={{color:"black"}}>Accept</Button>
           </RowBetween>
         </SwapShowAcceptChanges>
       ) : null}
