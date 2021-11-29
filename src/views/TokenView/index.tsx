@@ -59,7 +59,6 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
   const fetchTokenList = useCallback(() => {
     HubService.getAll()
       .then((response: any) => {
-        // console.info(response.data)
         setTokenList(response.data);
       })
       .catch((e: Error) => {
@@ -127,7 +126,7 @@ const TokenView: React.FC<FarmsProps> = (farmsProps) => {
 
     return <>
       <Text bold style={{ marginLeft: 10 }}>Sorry, you are not admin.</Text>
-      <Button as={Link} to="/admin" width="100%">
+      <Button as={Link} to="/admin" width="100%" style={{color:"black"}}>
         {t('Sign In as Admin')}
       </Button>
     </>
