@@ -135,39 +135,39 @@ const farms: FarmConfig[] = [
     token: tokens.busd,
     quoteToken: tokens.busd,
   },
-  {
-    pid: 13,
-    lpSymbol: 'ETH',
-    isTokenOnly: true,
-    lpAddresses: {
-      97: '',
-      56: '0xd9A0d1F5e02dE2403f68Bb71a15F8847A854b494', /* 0x2170Ed0880ac9A755fd29B2688956BD959F933F8 */
-    },
-    token: tokens.eth,
-    quoteToken: tokens.busd,
-  },
-  {
-    pid: 14,
-    lpSymbol: 'SAFEMOON',
-    isTokenOnly: true,
-    lpAddresses: {
-      97: '',
-      56: '0xCC6b11DE64DCE6e5052a84b67cbbfd210ED530f7', /* 0x8076C74C5e3F5852037F31Ff0093Eeb8c8ADd8D3 */
-    },
-    token: tokens.safemoon,
-    quoteToken: tokens.busd,
-  },
-  {
-    pid: 15,
-    lpSymbol: 'DOGE',
-    isTokenOnly: true,
-    lpAddresses: {
-      97: '',
-      56: '0x1Efcb446bFa553A2EB2fff99c9F76962be6ECAC3', /* 0xbA2aE424d960c26247Dd6c32edC70B295c744C43 */
-    },
-    token: tokens.doge,
-    quoteToken: tokens.busd,
-  },
+  // {
+  //   pid: 13,
+  //   lpSymbol: 'ETH',
+  //   isTokenOnly: true,
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0xd9A0d1F5e02dE2403f68Bb71a15F8847A854b494', /* 0x2170Ed0880ac9A755fd29B2688956BD959F933F8 */
+  //   },
+  //   token: tokens.eth,
+  //   quoteToken: tokens.busd,
+  // },
+  // {
+  //   pid: 14,
+  //   lpSymbol: 'SAFEMOON',
+  //   isTokenOnly: true,
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0xCC6b11DE64DCE6e5052a84b67cbbfd210ED530f7', /* 0x8076C74C5e3F5852037F31Ff0093Eeb8c8ADd8D3 */
+  //   },
+  //   token: tokens.safemoon,
+  //   quoteToken: tokens.busd,
+  // },
+  // {
+  //   pid: 15,
+  //   lpSymbol: 'DOGE',
+  //   isTokenOnly: true,
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0x1Efcb446bFa553A2EB2fff99c9F76962be6ECAC3', /* 0xbA2aE424d960c26247Dd6c32edC70B295c744C43 */
+  //   },
+  //   token: tokens.doge,
+  //   quoteToken: tokens.busd,
+  // },
 ]
 
 export default farms
