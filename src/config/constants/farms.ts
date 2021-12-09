@@ -53,56 +53,56 @@ const farms: FarmConfig[] = [
     token: tokens.cake,
     quoteToken: tokens.wbnb,
   },
-  {
-    pid: 5,
-    lpSymbol: 'TWT-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0x610e7a287c27dfFcaC0F0a94f547Cc1B770cF483',
-    },
-    token: tokens.twt,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 6,
-    lpSymbol: 'ADA-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0xBA51D1AB95756ca4eaB8737eCD450cd8F05384cF',
-    },
-    token: tokens.ada,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 7,
-    lpSymbol: 'XRP-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0xC7b4B32A3be2cB6572a1c9959401F832Ce47a6d2',
-    },
-    token: tokens.xrp,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 8,
-    lpSymbol: 'SAFEMOON-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0x9adc6Fb78CEFA07E13E9294F150C1E8C1Dd566c0',
-    },
-    token: tokens.safemoon,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 9,
-    lpSymbol: 'DOGE-BNB LP',
-    lpAddresses: {
-      97: '',
-      56: '0x4adB22473E8dBf5EFd0Bf554Ae35d7f3C5178fC5',
-    },
-    token: tokens.doge,
-    quoteToken: tokens.wbnb,
-  },
+  // {
+  //   pid: 5,
+  //   lpSymbol: 'TWT-BNB LP',
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0x610e7a287c27dfFcaC0F0a94f547Cc1B770cF483',
+  //   },
+  //   token: tokens.twt,
+  //   quoteToken: tokens.wbnb,
+  // },
+  // {
+  //   pid: 6,
+  //   lpSymbol: 'ADA-BNB LP',
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0xBA51D1AB95756ca4eaB8737eCD450cd8F05384cF',
+  //   },
+  //   token: tokens.ada,
+  //   quoteToken: tokens.wbnb,
+  // },
+  // {
+  //   pid: 7,
+  //   lpSymbol: 'XRP-BNB LP',
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0xC7b4B32A3be2cB6572a1c9959401F832Ce47a6d2',
+  //   },
+  //   token: tokens.xrp,
+  //   quoteToken: tokens.wbnb,
+  // },
+  // {
+  //   pid: 8,
+  //   lpSymbol: 'SAFEMOON-BNB LP',
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0x9adc6Fb78CEFA07E13E9294F150C1E8C1Dd566c0',
+  //   },
+  //   token: tokens.safemoon,
+  //   quoteToken: tokens.wbnb,
+  // },
+  // {
+  //   pid: 9,
+  //   lpSymbol: 'DOGE-BNB LP',
+  //   lpAddresses: {
+  //     97: '',
+  //     56: '0x4adB22473E8dBf5EFd0Bf554Ae35d7f3C5178fC5',
+  //   },
+  //   token: tokens.doge,
+  //   quoteToken: tokens.wbnb,
+  // },
   // {
   //   pid: 10,
   //   lpSymbol: 'SAFEMOON-USDT LP',
