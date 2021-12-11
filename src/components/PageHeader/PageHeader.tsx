@@ -5,6 +5,9 @@ import Container from '../Layout/Container'
 
 const Outer = styled(Box)<{ background?: string }>`
   background: ${({ theme, background }) => background || theme.colors.gradients.bubblegum};
+  border-bottom-width: 2px;
+  border-bottom-color: #F5F800;
+  border-bottom-style: solid;
 `
 
 const Inner = styled(Container)`

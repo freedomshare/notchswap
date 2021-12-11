@@ -406,7 +406,7 @@ const Farms: React.FC<FarmsProps> = (farmsProps) => {
 
   return (
     <>
-      <PageHeader>
+      <PageHeader background='black'>
         <Flex flexDirection="column">
           <Flex flexDirection={['column', null, null, 'row']} alignItems={['flex-end', null, null, 'center']}
         justifyContent="center"

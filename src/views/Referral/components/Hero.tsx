@@ -13,7 +13,7 @@ const Hero = () => {
 
 
   return (
-      <PageHeader>
+      <PageHeader background='black'>
         <Flex flexDirection="column" flex="1" alignSelf={['center', null, null, 'center']}>
           <Heading as="h1" scale="xxl" color="#f5f800" mb="24px">
             {t('Referral')}
