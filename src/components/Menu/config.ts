@@ -97,12 +97,11 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       // },
       {
         label: t('Docs'),
-        // href: 'https://notchswap.com/docs/whitepaper.pdf',
         href: ' https://forms.gle/NwuWLWYzbXdZGuCy6',
       },
       {
         label: t('News'),
-        href: 'https://medium.com/@notchswap',
+        href: 'https://medium.com/@notchtoken',
       },
     ],
   },
