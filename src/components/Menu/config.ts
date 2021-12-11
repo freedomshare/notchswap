@@ -8,9 +8,22 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     href: '/',
   },
   {
-    label: t('Reward'),
+    label: t('Explore'),
     icon: 'PredictionsIcon',
-    href: 'https://reward.notchswap.com/',
+    items: [
+      {
+        label: t('Reward'),
+        href: 'https://reward.notchswap.com/',
+      },
+      {
+        label: t('Smart Link'),
+        href: 'https://notchlink.com/NotchToken',
+      },
+      {
+        label: t('Verify token request'),
+        href: 'https://u25gaeklzah.typeform.com/to/f5K6podQ',
+      },
+    ],
   },
   {
     label: t('Trade'),
@@ -78,10 +91,10 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
     label: t('More'),
     icon: 'MoreIcon',
     items: [
-      {
-        label: t('Github'),
-        href: 'https://github.com/notchswap',
-      },
+      // {
+      //   label: t('Github'),
+      //   href: 'https://github.com/notchswap',
+      // },
       {
         label: t('Docs'),
         // href: 'https://notchswap.com/docs/whitepaper.pdf',
