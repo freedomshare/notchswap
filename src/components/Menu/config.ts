@@ -97,7 +97,7 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
       // },
       {
         label: t('Docs'),
-        href: ' https://forms.gle/NwuWLWYzbXdZGuCy6',
+        href: 'https://forms.gle/NwuWLWYzbXdZGuCy6',
       },
       {
         label: t('News'),
